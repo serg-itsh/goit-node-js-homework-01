@@ -6,8 +6,6 @@ const { program } = require("commander");
 
 const phones = require("./db/contacts");
 
-// console.log(__dirname);
-
 const invokeAction = async ({ action, id, name, email, phone }) => {
   // const phoneId = String(id);
 
@@ -28,14 +26,6 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       const removeContact = await phones.removeContact(id);
       console.table(removeContact);
       break;
-    case "updateById":
-      const updateBook = await phones.updateById(id, {
-        name,
-        email,
-        phone,
-      });
-      console.table(updateBook);
-      break;
 
     default:
       console.warn("\x1B[31m Unknown action type!");
@@ -53,50 +43,20 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
 // }
 //=============hideBin===============
 // const arr = hideBin(process.argv);
-// // console.log(arr);
+
 // const { argv } = yargs(arr);
-// // console.log(argv);
 
 // invokeAction(argv);
 //===============Commander====================
 program
-  .option("-a, --action <type>")
-  .option("-i, --id <type>")
-  .option("-n, --name <type>")
-  .option("-e, --email <type>")
-  .option("-p, --phone <type>");
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
 
-// program.parse(process.argv);
 program.parse();
 
 const opts = program.opts();
-// console.log(opts);
+
 invokeAction(opts);
-//==================================
-// invokeAction({ action: "list" });
-//=================================
-// invokeAction({ action: "get", id: "1" });
-//=================================
-// invokeAction({
-//   action: "add",
-//   name: "Tom Cruise",
-//   email: "I_dream_of_becoming@developer.net",
-//   phone: "(098) 799-1049",
-// });
-//=================================
-// invokeAction({
-//   action: "remove",
-//   id: "11",
-//   name: "Tom Cruise",
-//   email: "I_dream_of_becoming@developer.net",
-//   phone: "(098) 799-1049",
-// });
-//================================
-// invokeAction({
-//   action: "updateById",
-//   id: "11",
-//   name: "Tom Cruise",
-//   email: "I_dream_of_becoming@developer.net",
-//   phone: "(098) 799-1049",
-// });
-//
